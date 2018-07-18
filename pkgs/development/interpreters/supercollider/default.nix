@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
       ++ optional useSCEL emacs;
 
   postInstall = ''
-    ${if plugins then "cp -r ${sc3-plugins} $out/" else ""}
+    ${if plugins then "cp -r ${sc3-plugins}/* $out/" else ""}
   '';
 
   meta = {
