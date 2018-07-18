@@ -7590,6 +7590,8 @@ with pkgs;
 
   ruby = ruby_2_4;
 
+  sc3-plugins = callPackage ../applications/audio/sc3-plugins { };
+
   scsh = callPackage ../development/interpreters/scsh { };
 
   scheme48 = callPackage ../development/interpreters/scheme48 { };
@@ -7620,6 +7622,8 @@ with pkgs;
   };
 
   supercollider_scel = supercollider.override { useSCEL = true; };
+
+  supercollider-with-plugins = supercollider.override { plugins = true; };
 
   taktuk = callPackage ../applications/networking/cluster/taktuk { };
 

@@ -12,14 +12,10 @@
 , bash
 , makeWrapper
 , jack2Full
+, supercollider-with-plugins
 }:
 
-let
-  supercollider = libsForQt5.callPackage ../../../development/interpreters/supercollider {
-    fftw = fftwSinglePrec;
-  };
-
-in stdenv.mkDerivation rec {
+stdenv.mkDerivation rec {
   version = "3.1.0";
   name = "sonic-pi-${version}";
 
@@ -41,7 +37,7 @@ in stdenv.mkDerivation rec {
     ruby
     libffi
     aubio
-    supercollider
+    supercollider-with-plugins
     boost
   ];
 
@@ -83,7 +79,7 @@ in stdenv.mkDerivation rec {
 
     cp -r . $out
     wrapProgram $out/bin/sonic-pi \
-      --prefix PATH : ${ruby}/bin:${bash}/bin:${supercollider}/bin:${jack2Full}/bin \
+      --prefix PATH : ${ruby}/bin:${bash}/bin:${supercollider-with-plugins}/bin:${jack2Full}/bin \
       --set AUBIO_LIB "${aubio}/lib/libaubio.so"
 
     runHook postInstall
@@ -93,7 +89,7 @@ in stdenv.mkDerivation rec {
     homepage = http://sonic-pi.net/;
     description = "Free live coding synth for everyone originally designed to support computing and music lessons within schools";
     license = stdenv.lib.licenses.mit;
-    maintainers = with stdenv.lib.maintainers; [ Phlogistique kamilchm ];
+    maintainers = with stdenv.lib.maintainers; [ Phlogistique kamilchm bfortz ];
     platforms = stdenv.lib.platforms.linux;
   };
 }

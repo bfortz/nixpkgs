@@ -1,6 +1,7 @@
 { stdenv, fetchurl, cmake, pkgconfig
 , libjack2, libsndfile, fftw, curl, gcc
 , libXt, qtbase, qttools, qtwebkit, readline
+, plugins ? false, sc3-plugins
 , useSCEL ? false, emacs
 }:
 
@@ -10,7 +11,6 @@ in
 stdenv.mkDerivation rec {
   name = "supercollider-${version}";
   version = "3.9.3";
-
 
   src = fetchurl {
     url = "https://github.com/supercollider/supercollider/releases/download/Version-${version}/SuperCollider-${version}-Source-linux.tar.bz2";
@@ -28,7 +28,12 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     gcc libjack2 libsndfile fftw curl libXt qtbase qtwebkit readline ]
+      ++ optional plugins sc3-plugins
       ++ optional useSCEL emacs;
+
+  postInstall = ''
+    ${if plugins then "cp -r ${sc3-plugins} $out/" else ""}
+  '';
 
   meta = {
     description = "Programming language for real time audio synthesis";
