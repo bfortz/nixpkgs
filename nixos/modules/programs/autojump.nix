@@ -22,11 +22,12 @@ in
           Whether to enable autojump.
         '';
       };
-  };
+    };
+  }; 
 
   ###### implementation
 
   config = mkIf cfg.enable {
-    environment.pathsToLink = [ /share/autojump ];
+    environment.pathsToLink = [ "/share/autojump" ];
   };
 }
