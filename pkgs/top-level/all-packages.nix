@@ -9026,6 +9026,8 @@ in
 
   angelscript_2_22 = callPackage ../development/interpreters/angelscript/2.22.nix {};
 
+  babashka = callPackage ../development/interpreters/clojure/babashka.nix { };
+
   chibi = callPackage ../development/interpreters/chibi { };
 
   ceptre = callPackage ../development/interpreters/ceptre { };
